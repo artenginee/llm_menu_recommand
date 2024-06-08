@@ -1,12 +1,12 @@
 import gradio as gr
 import os
+from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-# OPEN AI API 키값 저장
-os.environ["OPENAI_API_KEY"] = 'sk-proj-40PAldEUDR88JfaQt6upT3BlbkFJCRSdan7ys7UFUJsI08aF' # 과제용
+load_dotenv()
 
 # LLM invoke 호출하여 food 변수값 얻어옴
 def generate_food_name(food: str) -> dict[str, str]:
@@ -37,25 +37,25 @@ def update_outputs(food: str) -> tuple[str, str]:
 with gr.Blocks() as app:
     gr.Markdown("# 1. 음식 메뉴 추천")
 
-    with gr.Row():
-        # 선호 음식 input
-        with gr.Column(scale=1) as left:
-            input_food = gr.Dropdown(
-                ["한식", "중식", "일식", "양식", "무작위"],
-                label="어떤 종류 음식을 먹고 싶나요?",
-            )
+    # with gr.Row():
+    #     # 선호 음식 input
+    #     with gr.Column(scale=1) as left:
+    #         input_food = gr.Dropdown(
+    #             ["한식", "중식", "일식", "양식", "무작위"],
+    #             label="어떤 종류 음식을 먹고 싶나요?",
+    #         )
 
-        # 추천 음식 output
-        with gr.Column(variant="panel", scale=4) as right:
-            out_menu_name = gr.Markdown()
-            out_menu_reason = gr.Markdown()
+    #     # 추천 음식 output
+    #     with gr.Column(variant="panel", scale=4) as right:
+    #         out_menu_name = gr.Markdown()
+    #         out_menu_reason = gr.Markdown()
             
-            # Dropdown 변경 시 LLM 호출
-            input_food.change(
-                fn=update_outputs,
-                inputs=input_food,
-                outputs=out_menu_name,
-            )
+    #         # Dropdown 변경 시 LLM 호출
+    #         input_food.change(
+    #             fn=update_outputs,
+    #             inputs=input_food,
+    #             outputs=out_menu_name,
+    #         )
 
 # gradio app 실행
 app.launch()
