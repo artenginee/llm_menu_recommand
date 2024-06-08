@@ -37,25 +37,25 @@ def update_outputs(food: str) -> tuple[str, str]:
 with gr.Blocks() as app:
     gr.Markdown("# 1. 음식 메뉴 추천")
 
-    # with gr.Row():
-    #     # 선호 음식 input
-    #     with gr.Column(scale=1) as left:
-    #         input_food = gr.Dropdown(
-    #             ["한식", "중식", "일식", "양식", "무작위"],
-    #             label="어떤 종류 음식을 먹고 싶나요?",
-    #         )
+    with gr.Row():
+        # 선호 음식 input
+        with gr.Column(scale=1) as left:
+            input_food = gr.Dropdown(
+                ["한식", "중식", "일식", "양식", "무작위"],
+                label="어떤 종류 음식을 먹고 싶나요?",
+            )
 
-    #     # 추천 음식 output
-    #     with gr.Column(variant="panel", scale=4) as right:
-    #         out_menu_name = gr.Markdown()
-    #         out_menu_reason = gr.Markdown()
+        # 추천 음식 output
+        with gr.Column(variant="panel", scale=4) as right:
+            out_menu_name = gr.Markdown()
+            out_menu_reason = gr.Markdown()
             
-    #         # Dropdown 변경 시 LLM 호출
-    #         input_food.change(
-    #             fn=update_outputs,
-    #             inputs=input_food,
-    #             outputs=out_menu_name,
-    #         )
+            # Dropdown 변경 시 LLM 호출
+            input_food.change(
+                fn=update_outputs,
+                inputs=input_food,
+                outputs=out_menu_name,
+            )
 
 # gradio app 실행
 app.launch()
